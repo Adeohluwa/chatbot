@@ -94,4 +94,4 @@ Thank you for contributing to the project!
 
 
 ## License
-[MIT License](LICENSE)
+[MIT License](LICENSE.txt)
