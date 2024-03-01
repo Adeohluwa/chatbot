@@ -1,4 +1,4 @@
-![Babcock Chatbot]("babcockfaq.png")
+![Babcock Chatbot](babcockfaq.png)
 
 
 # Streamlit Chatbot App
