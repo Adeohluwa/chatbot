@@ -45,28 +45,28 @@ You need to have Python 3.6 or higher installed on your system. You can download
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Adeohluwa/chatbot.git
+$ git clone https://github.com/Adeohluwa/chatbot.git
 ```
 
 ```bash
-cd chatbot
+$ cd chatbot
 ```
 
 ```bash
-python3 -m venv venv
+$ python3 -m venv venv
 ```
 
 ```bash
-source venv/bin/activate  # On Unix or MacOS
+$ source venv/bin/activate  # On Unix or MacOS
 venv\Scripts\activate  # On Windows
 ```
 
 ```bash
-pip install -r requirements.txt
+$ pip install -r requirements.txt
 ```
 
 ```bash
-streamlit run app.py
+$ streamlit run app.py
 ```
 
 ## Features
