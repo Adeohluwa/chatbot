@@ -44,7 +44,7 @@ html_content = """
 </head>
 <body>
     <div class="container">
-        <h1>University Admin Dashboard</h1>
+        <h1>Babcock Admin Dashboard</h1>
         <div class="dashboard-card">
             <h2>New Students</h2>
             <p>150</p>
