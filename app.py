@@ -1,13 +1,33 @@
 import streamlit as st
 import firebase_admin
+from auth_lib import sign_up, sign_in
 from firebase_admin import credentials, auth
 from bot import qa_bot
 from admin import html_content
+
 
 # Initialize Firebase app
 if not firebase_admin._apps:
     cred = credentials.Certificate("babcock-6b68d-firebase-adminsdk-zakzq-be757502db.json")
     default_app = firebase_admin.initialize_app(cred)
+
+
+
+# # Initialize Pyrebase
+# firebase_config = {
+#     "apiKey": "AIzaSyCErY0uhX5_jqVhD5xg7FLXj27KUvufyn4",
+#     "authDomain": "babcock-6b68d.firebaseapp.com",
+#     "projectId": "babcock-6b68d",
+#     "storageBucket": "babcock-6b68d.appspot.com",
+#     "messagingSenderId": "818496675066",
+#     "appId": "1:818496675066:web:7eb78e2439fab33ae17d43"
+# }
+
+
+# firebase = pyrebase.initialize_app(firebase_config)
+# authorize = firebase.auth()
+
+
 
 
 def display_answer(topic):
@@ -23,11 +43,9 @@ def login_page():
 
     if st.button("Login"):
         try:
-            user = auth.get_user_by_email(email)
-            firebase_user = auth.get_user_by_email_and_password(email, password)
+            user = sign_in(email, password)
             st.success("Login successful!")
-            return True
-            # st.experimental_rerun()  # Rerun the Streamlit script with the new state
+            st.session_state["user"] = user
         except Exception as e:
             st.error(f"Invalid email or password{e}")
 
@@ -62,12 +80,7 @@ def admin_page():
 
 
 def main():
-    if "is_user_logged_in" not in st.session_state:
-        st.session_state["is_user_logged_in"] = False
-
-    if st.session_state["is_user_logged_in"]:
-        qa_bot()
-    else:
+    if "user" not in st.session_state:
         pages = {
             "Login": login_page,
             "Sign Up": signup_page,
@@ -78,6 +91,9 @@ def main():
         selection = st.sidebar.radio("Go to", list(pages.keys()))
 
         pages[selection]()
+    else:
+        qa_bot()
+
 
 
 if __name__ == "__main__":
