@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 
 API_KEY = "AIzaSyCErY0uhX5_jqVhD5xg7FLXj27KUvufyn4"
 PROJECT_ID = "babcock-6b68d"
-BASE_URL = f"https://identitytoolkit.googleapis.com/v1/accounts:{PROJECT_ID}"
+BASE_URL = f"https://identitytoolkit.googleapis.com/v1/accounts:"
 
 
 def sign_up(email, password):
@@ -24,7 +24,7 @@ def sign_up(email, password):
 
 
 def sign_in(email, password):
-    url = urljoin(BASE_URL, "signInWithPassword?key={}".format(API_KEY))
+    url = BASE_URL + "signInWithPassword?key={}".format(API_KEY)
     data = json.dumps({
         "email": email,
         "password": password,
