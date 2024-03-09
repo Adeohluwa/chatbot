@@ -31,12 +31,15 @@ def sign_in(email, password):
         "returnSecureToken": True
     })
     headers = {"Content-Type": "application/json"}
+
+    print("URL:", url)
+    print("Data:", data)
+    print("Headers:", headers)
+
     response = requests.post(url, data=data, headers=headers)
 
-    print(f"Request data: {data}")  # Print request data
-
     if response.status_code == 200:
-        print(f"Response data: {response.json()}")  # Print response data
         return response.json()
     else:
         raise Exception(response.json()["error"]["message"])
+
