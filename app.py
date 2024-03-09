@@ -4,6 +4,7 @@ from auth_lib import sign_up, sign_in
 from firebase_admin import credentials, auth
 from bot import qa_bot
 from admin import html_content
+import time
 
 
 # Initialize Firebase app
@@ -41,9 +42,10 @@ def login_page():
     if st.button("Login"):
         try:
             user = sign_in(email, password)
-            st.success("Login successful!")
             st.session_state["user"] = user
             print(st.session_state)
+            st.success("Login successful!")
+            time.sleep(2)
             st.rerun()
         except Exception as e:
             st.error(f"Invalid email or password{e}")
