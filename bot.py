@@ -1,3 +1,4 @@
+import streamlit as st
 from chatbot.model import handle_query
 from chatbot.data import faq_data, bursary_data, registry_data, courses_data
 
@@ -14,6 +15,9 @@ courses_predefined_questions = list(courses_data.keys())
 
 
 
+def display_answer(topic):
+    response = handle_query(topic)
+    st.write(f"**Answer:** {response}")
 
 
 
