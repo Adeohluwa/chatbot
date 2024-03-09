@@ -30,9 +30,6 @@ if not firebase_admin._apps:
 
 
 
-def display_answer(topic):
-    response = handle_query(topic)
-    st.write(f"**Answer:** {response}")
 
 
 def login_page():
@@ -46,6 +43,8 @@ def login_page():
             user = sign_in(email, password)
             st.success("Login successful!")
             st.session_state["user"] = user
+            print(st.session_state)
+            st.rerun()
         except Exception as e:
             st.error(f"Invalid email or password{e}")
 
