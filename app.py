@@ -77,6 +77,11 @@ def admin_page():
         admin_login_page()
     else:
         st.markdown(html_content, unsafe_allow_html=True)
+        if st.button("Logout"):
+            del st.session_state["is_admin"]
+            st.success("Logout successful!")
+            time.sleep(2)
+            st.rerun()
 
 # Admin login page function
 # This function creates a login page for the admin user
