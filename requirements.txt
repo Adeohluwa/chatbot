@@ -1,3 +1,5 @@
 firebase-admin
 streamlit
 mistralai
+st-star-rating
+streamlit-feedback
