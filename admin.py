@@ -17,7 +17,7 @@ def get_question_items(enquiries):
 def get_feedback_items(feedbacks):
     html = ""
     for feedback in feedbacks:
-        html += f'<div class="feedback-item"><p>{feedback["feedback"]}</p><button>View</button></div>'
+        html += f'<div class="feedback-item"><p>Feedback: {feedback["feedback"]}\n Rating: {feedback["rating"]} stars</p><button>View</button></div>'
     return html
 
 
