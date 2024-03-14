@@ -1,8 +1,10 @@
-from db import get_pending_enquiries
+import streamlit as st
+from db import get_pending_enquiries, get_all_feedbacks, save_enquiry_answer
 
 enquiries = get_pending_enquiries()
+feedbacks = get_all_feedbacks()
 
-for each in enquiries:
+for each in feedbacks:
     print(each)
 
 def get_question_items(enquiries):
@@ -10,6 +12,14 @@ def get_question_items(enquiries):
     for enquiry in enquiries:
         html += f'<div class="question-item"><p>{enquiry["enquiry"]}</p><button>Answer</button></div>'
     return html
+
+
+def get_feedback_items(feedbacks):
+    html = ""
+    for feedback in feedbacks:
+        html += f'<div class="feedback-item"><p>{feedback["feedback"]}</p><button>View</button></div>'
+    return html
+
 
 html_content = f"""
 <!DOCTYPE html>
@@ -43,14 +53,14 @@ html_content = f"""
         .question-item {{
             margin-bottom: 10px;
         }}
-        .news-list {{
+        .feedback-list {{
             width: 100%;
             padding: 20px;
             margin: 10px;
             float: left;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
         }}
-        .news-item {{
+        .feedback-item {{
             margin-bottom: 10px;
         }}
     </style>
@@ -78,7 +88,12 @@ html_content = f"""
             <h2>New Unanswered Questions</h2>
             {get_question_items(enquiries)}
         </div>
+        <div class="feedback-list">
+            <h2>All Feedbacks</h2>
+            {get_feedback_items(feedbacks)}
+        </div>
     </div>
 </body>
 </html>
+
 """
