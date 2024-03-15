@@ -31,6 +31,16 @@ def save_enquiry(user_id, enquiry_text):
     doc_ref.set(enquiry_data)
 
 
+def save_enquiry_answer(user_id, enquiry_id, answer_text):
+    enquiry_ref = db.collection('Enquiries').document(user_id).collection('enquiries').document(enquiry_id)
+    enquiry_ref.update({
+        'status': 'answered',
+        'answer': answer_text,
+        'answer_timestamp': firestore.SERVER_TIMESTAMP
+    })
+
+
+
 def get_pending_enquiries():
     enquiries = db.collection('Enquiries').where('status', '==', 'pending').stream()
     pending_enquiries = []
@@ -41,3 +51,16 @@ def get_pending_enquiries():
         pending_enquiries.append(enquiry_data)
 
     return pending_enquiries
+
+
+
+def get_all_feedbacks():
+    feedbacks = db.collection('Feedback').stream()
+    all_feedbacks = []
+
+    for feedback in feedbacks:
+        feedback_data = feedback.to_dict()
+        feedback_data['id'] = feedback.id
+        all_feedbacks.append(feedback_data)
+
+    return all_feedbacks
