@@ -14,6 +14,7 @@ predefined_questions = list(faq_data.keys())
 bursary_predefined_questions = list(bursary_data.keys())
 registry_predefined_questions = list(registry_data.keys())
 courses_predefined_questions = list(courses_data.keys())
+hostel_predefined_questions = list(courses_data.keys())
 # hostel_predefined_questions =
 
 
@@ -36,9 +37,13 @@ def qa_bot():
     if bursary_question:
         display_answer(bursary_question)
 
-    registry_question = st.selectbox("Some questions people ask about Registry", bursary_predefined_questions)
+    registry_question = st.selectbox("Some questions people ask about Registry", registry_predefined_questions)
     if registry_question:
         display_answer(registry_question)
+
+    hostel_question = st.selectbox("Some questions people ask about Hostels", hostel_predefined_questions)
+    if hostel_question:
+        display_answer(hostel_question)
 
     user_query = st.text_input("Ask a question")
     if user_query:
