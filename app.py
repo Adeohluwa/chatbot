@@ -1,8 +1,8 @@
 import streamlit as st
 from auth_lib import sign_up, sign_in
-import db
-from db import auth
+# import db
 # from firebase_admin import credentials, auth, firestore
+from chatbot.db import auth
 from bot import qa_bot
 from admin import html_content, admin_page
 import time
