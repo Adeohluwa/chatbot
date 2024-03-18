@@ -32,7 +32,8 @@ def save_enquiry(user_id, enquiry_text):
 
 
 def save_enquiry_answer(user_id, enquiry_id, answer_text):
-    enquiry_ref = db.collection('Enquiries').document(user_id).collection('enquiries').document(enquiry_id)
+    enquiry_ref = db.collection('Enquiries').document(user_id)
+    # .collection('enquiries').document(enquiry_id)
     enquiry_ref.update({
         'status': 'answered',
         'answer': answer_text,
