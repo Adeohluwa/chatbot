@@ -1,15 +1,16 @@
 import time
-from db import auth, save_feedback, save_enquiry
 import streamlit as st
 from streamlit_star_rating import st_star_rating
 
 from chatbot.model import handle_query
-from chatbot.data import faq_data, bursary_data, registry_data, courses_data
+from chatbot.data import faq_data, bursary_data, registry_data, courses_data, new_data
+from chatbot.db import auth, save_feedback, save_enquiry
 
 
 
 
 # Get a list of predefined questions from the data
+# recent_questions = list(new_data.keys())
 predefined_questions = list(faq_data.keys())
 bursary_predefined_questions = list(bursary_data.keys())
 registry_predefined_questions = list(registry_data.keys())
@@ -28,6 +29,10 @@ def display_answer(topic):
 
 def qa_bot():
     # Display predefined questions as a selectbox or multiselect
+    # recent = st.selectbox("Some enquiries students like you have just asked", recent_questions)
+    # if recent:
+        # display_answer(recent)
+
     courses_question = st.selectbox("Some questions people ask about Courses", courses_predefined_questions)
     if courses_question:
         display_answer(courses_question)
