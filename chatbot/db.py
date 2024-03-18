@@ -31,7 +31,7 @@ def save_enquiry(user_id, enquiry_text):
     doc_ref.set(enquiry_data)
 
 
-def save_enquiry_answer(user_id, enquiry_id, answer_text):
+def save_enquiry_answer(user_id, answer_text):
     enquiry_ref = db.collection('Enquiries').document(user_id)
     # .collection('enquiries').document(enquiry_id)
     enquiry_ref.update({
@@ -53,6 +53,17 @@ def get_pending_enquiries():
 
     return pending_enquiries
 
+
+def get_answered_enquiries():
+    enquiries = db.collection('Enquiries').where('status', '==', 'answered').stream()
+    answered_enquiries = []
+
+    for enquiry in enquiries:
+        enquiry_data = enquiry.to_dict()
+        enquiry_data['id'] = enquiry.id
+        answered_enquiries.append(enquiry_data)
+
+    return answered_enquiries
 
 
 def get_all_feedbacks():
