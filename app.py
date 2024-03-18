@@ -4,24 +4,13 @@ import db
 from db import auth
 # from firebase_admin import credentials, auth, firestore
 from bot import qa_bot
-from admin import html_content
+from admin import html_content, admin_page
 import time
 
-# Firebase app initialization
-# This block of code checks if the Firebase app has been initialized
-# If not, it initializes the app using the provided credentials
-# if not firebase_admin._apps:
-#     cred = credentials.Certificate("babcock-6b68d-firebase-adminsdk-zakzq-be757502db.json")
-#     default_app = firebase_admin.initialize_app(cred)
 
 
-# db = firestore.client()
 
 
-# Admin credentials
-# These are the email and password for the admin user
-ADMIN_EMAIL = "admin@example.com"
-ADMIN_PASSWORD = "admin_password"
 
 # Login page function
 # This function creates a login page for users
@@ -70,30 +59,7 @@ def signup_page():
 
     st.markdown("Already have an account? [Login](/)")
 
-# Admin page function
-# This function creates an admin page that can only be accessed by the admin user
-def admin_page():
-    if "is_admin" not in st.session_state or not st.session_state["is_admin"]:
-        admin_login_page()
-    else:
-        st.markdown(html_content, unsafe_allow_html=True)
 
-# Admin login page function
-# This function creates a login page for the admin user
-def admin_login_page():
-    st.title("Admin Login")
-
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-        if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
-            st.session_state["is_admin"] = True
-            st.success("Login successful!")
-            time.sleep(2)
-            st.rerun()
-        else:
-            st.error("Invalid email or password")
 
 
 
