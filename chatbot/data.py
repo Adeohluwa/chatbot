@@ -1,3 +1,5 @@
+from .db import get_answered_enquiries
+
 faq_data = {
       "What type of halls are available to students in the main campus?": "We have Premium halls and classic halls for both male and female.",
       "How is hostel accommodation assigned to students?": "We offer both premium and classic halls, each designated for specific academic levels. Depending on your level and selected plan, students have the flexibility to choose the hall that best aligns with their preferences.",
@@ -281,3 +283,16 @@ school_fees_data = {
     }
   ]
 }
+
+new_data = {
+      "What type of halls are available to students in the main campus?": "We have Premium halls and classic halls for both male and female.",
+      "How is hostel accommodation assigned to students?": "We offer both premium and classic halls, each designated for specific academic levels. Depending on your level and selected plan, students have the flexibility to choose the hall that best aligns with their preferences.",
+}
+
+
+answers = get_answered_enquiries()
+enquiries_and_answer = [(e["enquiry"],e["answer"]) for e in answers]
+new_data = new_data.update(dict(enquiries_and_answer))
+
+print(enquiries_and_answer)
+print(new_data)
