@@ -1,6 +1,6 @@
 import time
 import streamlit as st
-from db import get_pending_enquiries, get_all_feedbacks, save_enquiry_answer
+from chatbot.db import get_pending_enquiries, get_all_feedbacks, save_enquiry_answer
 
 
 enquiries = get_pending_enquiries()
@@ -8,7 +8,8 @@ feedbacks = get_all_feedbacks()
 
 
 # enquiries_list = list(bursary_data.keys())
-print(feedbacks)
+enquiries_list = [each for each in enquiries]
+# print(enquiries_list)
 
 
 # Admin credentials
@@ -24,6 +25,14 @@ def admin_page():
         admin_login_page()
     else:
         st.markdown(html_content, unsafe_allow_html=True)
+        respond_to_enquiry()
+        # Logout button
+        if st.button("Logout"):
+            del st.session_state["is_admin"]
+            st.warning("You have been logged out")
+            time.sleep(2)
+            st.rerun()
+
 
 
 # Admin login page function
@@ -49,19 +58,41 @@ def admin_login_page():
 
 def get_question_items(enquiries):
     html = ""
-    for enquiry in enquiries:
-        html += f"""<div class="question-item"><p>{enquiry["enquiry"]}</p><button onclick="alert('Button clicked!')"">Answer</button></div>"""
-    return html
+    if enquiries:
+        for enquiry in enquiries:
+            html += f"""<div class="question-item"><p>{enquiry["enquiry"]}</p><button>Answer</button></div>"""
+        return html
+    return '<div class="question-item"><p>None for now</p></div>'
 
 
 def get_feedback_items(feedbacks):
     html = ""
-    for feedback in feedbacks:
-        html += f'<div class="feedback-item"><p>Feedback: {feedback["feedback"]}\n Rating: {feedback["rating"]} stars</p><button>View</button></div>'
-    return html
+    if feedbacks:
+        for feedback in feedbacks:
+            html += f'<div class="feedback-item"><p>Feedback: {feedback["feedback"]}\n Rating: {feedback["rating"]} stars</p><button>View</button></div>'
+        return html
+    return f'<div class="feedback-item"><p>Feedback: None for now\n</p><button>View</button></div>'
 
 
+def get_enquiry_id(text):
+    uid = [entry["id"] for entry in enquiries_list if entry["enquiry"] == text][0]
+    return uid
 
+
+def respond_to_enquiry():
+    st.title("Admin Response Section")
+    enquiry = st.selectbox("Respond to specific questions students have asked", [each["enquiry"] for each in enquiries_list])
+    if enquiry:
+        uid = get_enquiry_id(enquiry)
+        response = st.text_area("Response")
+        submit_button = st.button("Submit Response")
+        if submit_button:
+            save_enquiry_answer(uid, response)
+            st.success("Response submitted!")
+            time.sleep(3)
+            st.rerun()
+
+# print(get_enquiry_id("why is there no rail transport?"))
 
 html_content = f"""
 <!DOCTYPE html>
